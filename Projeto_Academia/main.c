@@ -1,8 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <windows.h>
 #include <locale.h>
+
+// Detecta Windows
+#ifdef _WIN32
+    #include <windows.h>
+#else
+    #include <unistd.h> // para usleep() e POSIX funções
+#endif
 
 typedef struct {
     int idPessoa;
@@ -15,23 +21,31 @@ typedef struct {
 //Função que identifica o sistema operacional e depois limpa a tela do terminal
 void limpar_tela() {
     #ifdef _WIN32
-        system("cls");       // Windows
-    #elif __linux__
-        system("clear");     // Linux
-    #elif __APPLE__
-        system("clear");     // macOS
+        system("cls");
+    #else
+        system("clear");
     #endif
 }
 
 //Função que identifica o sistema operacional e pausa o terminal
 void pausar_tela() {
     #ifdef _WIN32
-        system("pause");     // Windows
-    #elif __linux__
-        system("read -p \"Pressione ENTER para continuar...\"");  // Linux
-    #elif __APPLE__
-        system("read -p \"Pressione ENTER para continuar...\"");  // macOS
+        system("pause");
+    #else
+        printf("Pressione ENTER para continuar...");
+        getchar(); getchar(); // garante leitura correta após scanf
     #endif
+}
+
+void locale_UTF(){
+    // Configuração de locale/UTF-8
+    #ifdef _WIN32
+        SetConsoleOutputCP(CP_UTF8);
+        SetConsoleCP(CP_UTF8);
+    #else
+        setlocale(LC_ALL, "C.UTF-8"); // Linux/macOS
+    #endif
+
 }
 
 //Função que cria o menu na tela, porém é nescessario ter os comandos para utilização de UTF-8
@@ -49,6 +63,10 @@ void criar_menu(){
 }
 
 int cadastrar_aluno(Aluno **alunos, int *quantidade_alunos){
+    limpar_tela();
+    printf("┌───────────────────────────────────────────────┐\n");
+    printf("│              CADASTRAR ALUNO                  │\n");
+    printf("└───────────────────────────────────────────────┘\n");
     Aluno novoAluno;
 
     printf("ID do Aluno: ");
@@ -104,10 +122,8 @@ void listar_todos_alunos(Aluno *alunos, int quantidade_alunos){
     printf("└──────────────┴───────────────────────────────────────────────────┴────────┴──────────────┴──────────────┘\n");
 }
 
-int main(){
-    //Como set Locale não está funcionando corretamente em alguma maquinas, estou usando o SetConsoleOutputCP
-    SetConsoleOutputCP(CP_UTF8); // força saída UTF-8
-    SetConsoleCP(CP_UTF8);       // força entrada UTF-8
+int main(){ 
+    locale_UTF();
 
     Aluno *aluno = NULL;
     int quantidade_alunos = 0;
@@ -121,10 +137,7 @@ int main(){
 
         switch (escolha){
         case 1:
-            limpar_tela();
-            printf("┌───────────────────────────────────────────────┐\n");
-            printf("│              CADASTRAR ALUNO                  │\n");
-            printf("└───────────────────────────────────────────────┘\n");
+
             if(cadastrar_aluno(&aluno,&quantidade_alunos) == 1){
                 printf("cadastro realizado com sucesso!\n");
                 pausar_tela();
@@ -162,6 +175,7 @@ int main(){
         }
 
     }while (escolha != 6);
-   
+
+    free(aluno);
     return 0;
 }
