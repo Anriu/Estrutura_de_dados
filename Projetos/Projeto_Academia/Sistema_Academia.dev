@@ -4,10 +4,10 @@ name=Sistema_Academia
 Type=1
 Ver=2
 ObjFiles=
-Includes=
+Includes=.\includes
 Libs=
 PrivateResource=
-ResourceIncludes=
+ResourceIncludes=.\src
 MakeIncludes=
 Compiler=
 CppCompiler=
@@ -19,12 +19,12 @@ ObjectOutput=
 LogOutput=
 LogOutputEnabled=0
 OverrideOutput=0
-OverrideOutputName=
+OverrideOutputName=Sistema_Academia.exe
 HostApplication=
 UseCustomMakefile=0
 CustomMakefile=
 CommandLine=
-Folders=
+Folders=data,includes,src
 IncludeVersionInfo=0
 SupportXPThemes=0
 CompilerSet=0
@@ -39,21 +39,21 @@ Build=0
 LanguageID=1033
 CharsetID=1252
 CompanyName=
-FileVersion=
+FileVersion=1.0.0.0
 FileDescription=Developed using the Dev-C++ IDE
 InternalName=
 LegalCopyright=
 LegalTrademarks=
 OriginalFilename=
 ProductName=
-ProductVersion=
+ProductVersion=1.0.0.0
 AutoIncBuildNr=0
 SyncProduct=1
 
 [Unit1]
-FileName=sistema_principal.c
+FileName=src\aluno.c
 CompileCpp=0
-Folder=
+Folder=src
 Compile=1
 Link=1
 Priority=1000
@@ -61,9 +61,9 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit2]
-FileName=utilitarios.h
+FileName=src\sistema_principal.c
 CompileCpp=0
-Folder=
+Folder=src
 Compile=1
 Link=1
 Priority=1000
@@ -71,9 +71,9 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit3]
-FileName=utilitarios.c
+FileName=src\utilitarios.c
 CompileCpp=0
-Folder=
+Folder=src
 Compile=1
 Link=1
 Priority=1000
@@ -81,9 +81,9 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit4]
-FileName=aluno.h
+FileName=includes\aluno.h
 CompileCpp=0
-Folder=
+Folder=includes
 Compile=1
 Link=1
 Priority=1000
@@ -91,9 +91,19 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit5]
-FileName=aluno.c
+FileName=includes\utilitarios.h
 CompileCpp=0
-Folder=
+Folder=includes
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit6]
+FileName=bin\Untitled1.c
+CompileCpp=0
+Folder=bin
 Compile=1
 Link=1
 Priority=1000
